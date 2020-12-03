@@ -7,13 +7,21 @@ describe Schedule do
     end
 
     it "loads definitions from a file and returns the definition table" do
-      table = described_class.load('spec/data/basic.rb')
-      expect(table).not_to be_empty
-      expect(table.length).to be(1)
+      expect(described_class.load('spec/data/basic.rb')).not_to be_empty
+    end
+  end
 
-      rule = table.first
-      expect(rule.condition.call).to be(true)
-      expect(rule.block.call).to eql("Go swimming")
+  describe "basic rule list" do
+    let(:date) do
+      Date.new(2020, 12, 1)
+    end
+
+    subject do
+      described_class.load('spec/data/basic.rb')
+    end
+
+    it "returns a filtered list of rules which evaluated true for given date" do
+      expect(subject.filter(date).length).to eql(2)
     end
   end
 end

@@ -1,3 +1,4 @@
+require 'date'
 require 'forwardable'
 
 module Schedule
@@ -18,10 +19,27 @@ module Schedule
 
     def_delegators :rules, :length, :first, :empty?, :<<
 
-    def evaluate(date)
-      self.rules.select do |rule|
-        rule.call(date)
-      end
+    def filter(date)
+      FilteredRuleList.new(date, self.rules.select { |rule|
+        rule.condition.call(date)
+      })
+    end
+  end
+
+  class FilteredRuleList
+    extend Forwardable
+
+    attr_reader :date, :rules
+    def initialize(date, rules)
+      @date, @rules = date, rules
+    end
+
+    def_delegators :rules, :length, :first, :empty?, :<<
+
+    # TODO: Call with a time frame? For instance:
+    # schedule.time_frame.find('morning').create_event('Go swimming') }
+    def evaluate
+      self.rules.map { |rule| rule.block.call }
     end
   end
 
