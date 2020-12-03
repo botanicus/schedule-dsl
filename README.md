@@ -1,6 +1,6 @@
 # About
 
-Provides a DSL for defining your schedule.
+_Provides a DSL for defining your schedule rules and getting results for given date._
 
 ## Examples
 
