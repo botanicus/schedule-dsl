@@ -25,6 +25,7 @@ require 'schedule'
 
 table = Schedule.load(definition_file_path)
 table.filter(Date.today).evaluate
+# => ["Go swimming", "Read a book"]
 ```
 
 ### Use a collector object
