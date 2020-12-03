@@ -2,6 +2,10 @@
 
 _Provides a DSL for defining your schedule rules and getting results for given date._
 
+# Installation
+
+Run `gem install schedule-dsl`.
+
 # Examples
 
 ## Collect returned values
