@@ -11,17 +11,53 @@ describe Schedule do
     end
   end
 
-  describe "basic rule list" do
-    let(:date) do
-      Date.new(2020, 12, 1)
-    end
+  let(:date) do
+    Date.new(2020, 12, 1)
+  end
 
-    subject do
+  context "basic rule list" do
+    let(:table) do
       described_class.load('spec/data/basic.rb')
     end
 
-    it "returns a filtered list of rules which evaluated true for given date" do
-      expect(subject.filter(date).length).to eql(2)
+    describe '#filter' do
+      it "returns a filtered list of rules which evaluated true for given date" do
+        expect(table.filter(date).length).to eql(2)
+      end
+    end
+
+    describe '#evaluate' do
+      subject { table.filter(date) }
+
+      it "returns a list of outputs that were evaluated from each rule's block" do
+        expect(subject.evaluate).to eql(["Go swimming", "Read a book"])
+      end
+    end
+  end
+
+  context "standard rule list" do
+    let(:time_frames) {{
+      morning: Array.new,
+      evening: Array.new
+    }}
+
+    let(:table) do
+      described_class.load('spec/data/standard.rb')
+    end
+
+    describe '#filter' do
+      it "returns a filtered list of rules which evaluated true for given date" do
+        expect(table.filter(date).length).to eql(2)
+      end
+    end
+
+    describe '#evaluate' do
+      subject { table.filter(date) }
+
+      it "returns a list of outputs that were evaluated from each rule's block" do
+        subject.evaluate(time_frames)
+        expect(time_frames).to eql(morning: ["Go swimming"], evening: ["Read a book"])
+      end
     end
   end
 end
