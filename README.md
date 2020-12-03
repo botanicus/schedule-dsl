@@ -8,6 +8,7 @@ _Provides a DSL for defining your schedule rules and getting results for given d
 
 ```ruby
 # Your definition file.
+
 rule Proc.new { true } do
   "Go swimming"
 end
@@ -22,6 +23,8 @@ end
 ```
 
 ```ruby
+# Your script.
+
 require 'schedule'
 
 table = Schedule.load(definition_file_path)
@@ -33,6 +36,7 @@ table.filter(Date.today).evaluate
 
 ```ruby
 # Your definition file.
+
 rule -> (date) { date.tuesday? } do |time_frames|
   time_frames[:morning] << "Go swimming"
 end
@@ -43,6 +47,8 @@ end
 ```
 
 ```ruby
+# Your script.
+
 require 'schedule'
 
 table = Schedule.load(definition_file_path)
