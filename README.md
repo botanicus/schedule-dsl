@@ -7,6 +7,7 @@ _Provides a DSL for defining your schedule rules and getting results for given d
 ## Collect returned values
 
 ```ruby
+# Your definition file.
 rule Proc.new { true } do
   "Go swimming"
 end
@@ -31,6 +32,7 @@ table.filter(Date.today).evaluate
 ## Use a collector object
 
 ```ruby
+# Your definition file.
 rule -> (date) { date.tuesday? } do |time_frames|
   time_frames[:morning] << "Go swimming"
 end
