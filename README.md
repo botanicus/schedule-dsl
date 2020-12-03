@@ -2,9 +2,9 @@
 
 _Provides a DSL for defining your schedule rules and getting results for given date._
 
-## Examples
+# Examples
 
-### Collect returned values
+## Collect returned values
 
 ```ruby
 rule Proc.new { true } do
@@ -28,7 +28,7 @@ table.filter(Date.today).evaluate
 # => ["Go swimming", "Read a book"]
 ```
 
-### Use a collector object
+## Use a collector object
 
 ```ruby
 rule -> (date) { date.tuesday? } do |time_frames|
